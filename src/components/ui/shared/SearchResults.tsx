@@ -7,18 +7,18 @@ type SearchResultProps = {
   searchedPosts: Models.Document[];
 }
 
-const SearchResults = ({ isSearchFetching, searchedPosts } : SearchResultProps ) => {
-  if (isSearchFetching) return <Loader />
+const SearchResults = ({ isSearchFetching, searchedPosts }: SearchResultProps) => {
+  if (isSearchFetching) return <Loader />;
 
-  if (searchedPosts && searchedPosts.documents.length > 0) {
+  if (searchedPosts && searchedPosts.length > 0) {
     return (
-      <GridPostList posts={searchedPosts.documents} />
-    )
+      <GridPostList posts={searchedPosts} />
+    );
   }
 
   return (
-	  <p className='text-light-4 mt-10 text-center w-full'>No Results Found</p>
-  )
+    <p className='text-light-4 mt-10 text-center w-full'>No Results Found</p>
+  );
 }
 
-export default SearchResults
+export default SearchResults;

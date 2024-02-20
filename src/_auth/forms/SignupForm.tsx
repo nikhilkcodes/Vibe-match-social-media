@@ -17,7 +17,7 @@ import Loader from '@/components/ui/shared/Loader';
 const SignupForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser} = useUserContext();
 
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -31,7 +31,7 @@ const SignupForm = () => {
 
   // Queries
   const { mutateAsync: createUserAccount, isPending: isCreatingAccount } = useCreateUserAccount();
-  const { mutateAsync: signInAccount, isPending: isSigningInUser } = useSignInAccount();
+  const { mutateAsync: signInAccount } = useSignInAccount();
 
   // Handler
   const handleSignup = async (user: z.infer<typeof SignupValidation>) => {

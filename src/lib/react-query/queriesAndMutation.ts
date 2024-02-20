@@ -7,7 +7,6 @@ import {
 	useQuery,
 	useQueryClient,
 } from '@tanstack/react-query'
-import { Search } from 'lucide-react'
 
 export const useCreateUserAccount = () => {
 	return useMutation({

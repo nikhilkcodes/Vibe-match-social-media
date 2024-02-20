@@ -4,7 +4,6 @@ import { Models } from 'appwrite';
 import { Loader } from 'lucide-react';
 import React,{ useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
-import { record } from 'zod';
 
 type PostStatsProps = {
 	post?: Models.Document;

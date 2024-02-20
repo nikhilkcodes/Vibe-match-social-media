@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,7 +28,7 @@ type PostFormProps = {
 const PostForm = ({ post, action }: PostFormProps) => {
 	const { mutateAsync: createPost, isPending: isLoadingCreate } =
 		useCreatePost();
-	const { mutateAsync: updatePost, isPending: isLoadingUpdate } = useUpdatePost();
+	const { mutateAsync: updatePost } = useUpdatePost();
 	const { user } = useUserContext();
 	const { toast } = useToast();
 

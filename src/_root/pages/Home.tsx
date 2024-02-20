@@ -5,12 +5,11 @@ import { Models } from 'appwrite';
 import { Loader } from 'lucide-react';
 
 const Home = () => {
-  const {data: posts, isPending: isPostLoading, isError: isErrorPosts} = useGetRecentPosts();
+  const {data: posts, isPending: isPostLoading } = useGetRecentPosts();
 
   const {
     data: creators,
     isPending: isUserLoading,
-    isError: isErrorCreators,
   } = useGetUsers(10);
   return (
 	<div className='flex flex-1'>
