@@ -1,19 +1,48 @@
 import { Button } from '@/components/ui/button';
 import PostStats from '@/components/ui/shared/PostStats';
+import { toast } from '@/components/ui/use-toast';
 import { useUserContext } from '@/context/AuthContext';
-import { useGetPostById } from '@/lib/react-query/queriesAndMutation'
+import { useDeletePost, useGetPostById } from '@/lib/react-query/queriesAndMutation'
 import { formatDateString } from '@/lib/utils';
 import { Loader } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const PostDetails = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams()
-
   const { data: post, isPending } = useGetPostById(id || '')
-
   const { user } = useUserContext()
 
-  const handleDeletePost = () => {}
+  const deletePostMutation = useDeletePost();
+
+  const handleDeletePost = async () => {
+    try {
+        // Ensure that post data is available
+        if (!post) {
+          console.error('Post data is missing.');
+          return;
+        }
+
+        // Use optional chaining to safely access post properties
+        const postId = post.$id;
+        const imageId = post.imageId;
+       console.log(`your post id is ${postId} and image id is ${imageId}`)
+        if (postId && imageId) {
+          // Call the deletePost mutation hook with postId and imageId
+          await deletePostMutation.mutateAsync({ postId, imageId });
+          navigate('/')
+          toast({
+            title: "Post Deleted !",
+            variant: "success",
+          })
+        } else {
+          console.error('Post ID or image ID is missing.');
+        }
+      } catch (error) {
+        console.error('Error deleting post:', error);
+      }
+    };
 
   return (
       <div className="post_details-container">
@@ -38,7 +67,7 @@ const PostDetails = () => {
                               <Link to={`/update-post/${post?.$id}`} className={`${user.id !== post?.creator.$id && 'hidden'}`}>
                                   <img src="/assets/icons/edit.svg" alt="edit" width={24} height={24} />
                               </Link>
-                              <Button onClick={handleDeletePost} variant="ghost" className={`ghost_details-delete_btn ${user.id !== post?.creator.$id && 'hidden'}`}>
+                              <Button onClick={handleDeletePost} disabled={deletePostMutation.isPending} variant="ghost" className={`ghost_details-delete_btn ${user.id !== post?.creator.$id && 'hidden'}`}>
                                   <img src="/assets/icons/delete.svg" alt="alt" width={24} height={24} />
                               </Button>
                           </div>

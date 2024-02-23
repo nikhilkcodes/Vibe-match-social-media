@@ -78,7 +78,6 @@ export async function getAccount() {
 export async function getCurrentUser() {
 	try {
 		const currentAccount = await account.get();
-		console.log(`the current accound is :`, JSON.stringify(currentAccount));
 
 		if (!currentAccount) throw Error;
 
