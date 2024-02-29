@@ -5,7 +5,6 @@ import { Loader } from 'lucide-react';
 import GridPostList from '@/components/ui/shared/GridPostList';
 import { useGetPosts, useSearchPosts } from '@/lib/react-query/queriesAndMutation';
 import { Input } from '@/components/ui/input';
-
 export type SearchResultProps = {
   isSearchFetching: boolean;
   searchedPosts: any;
